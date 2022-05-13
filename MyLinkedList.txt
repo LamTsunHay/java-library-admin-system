@@ -1,0 +1,78 @@
+import java.util.LinkedList;
+
+public class MyLinkedList<E>{
+    private Node<E> head;
+    private Node<E> tail;
+    private int size;
+
+    public MyLinkedList(){
+        LinkedList<E> list = new LinkedList<>();
+    }
+    public MyLinkedList(E[] elements){
+        LinkedList<E> list = new LinkedList<>();
+        for(int i = 0; i<elements.length; i++){
+            list.add(i, elements[i]);
+        }
+    }
+    public void addFirst(E e){
+        Node<E> newNode = new Node<>(e);
+        newNode.next = head;
+        head = newNode;
+        size++;
+        if (tail == null)
+        tail = head;
+    }
+    public void addLast(E e) {
+        if (tail == null) {
+            head = tail = new Node<>(e);
+        }
+        else {
+            tail.next = new Node<>(e);
+            tail = tail.next;
+        }
+        size++;
+    }
+
+    public E getFirst(){
+        return head.element;
+    }
+    
+    public E getLast(){
+        return tail.element;
+    }
+
+
+    public E removeFirst() {
+        if (size == 0) return null;
+        else {
+            Node<E> temp = head;
+            head = head.next;
+            size--;
+        if (head == null) tail = null;
+        return temp.element;
+        }
+    }
+
+    public E removeLast() {
+        if (size == 0) 
+            return null;
+        else if (size == 1){
+            Node<E> temp = head;
+            head = tail = null;
+            size = 0;
+            return temp.element;
+        }
+        else{
+            Node<E> current = head;
+            for (int i = 0; i < size - 2; i++){
+                current = current.next;
+            }
+            Node<E> temp = tail;
+            tail = current;
+            tail.next = null;
+            size--;
+            return temp.element;
+        }
+    }
+        
+}
